@@ -1,0 +1,18 @@
+// Code signing for local builds.
+//
+// By default Murmur is signed ad-hoc ("Sign to Run Locally"), which works on any Mac
+// without an Apple developer account.
+//
+// macOS ties the Accessibility and Microphone permissions (and the Keychain item holding
+// your API key) to the app's code signature. With ad-hoc signing every rebuild looks like
+// a new app, so the permissions have to be granted again after an update. To avoid that,
+// create Configs/Local.xcconfig (git-ignored) with your own certificate:
+//
+//     CODE_SIGN_IDENTITY = Apple Development
+//     DEVELOPMENT_TEAM = YOURTEAMID
+CODE_SIGN_STYLE = Manual
+CODE_SIGN_IDENTITY = -
+DEVELOPMENT_TEAM =
+PROVISIONING_PROFILE_SPECIFIER =
+
+#include? "Local.xcconfig"

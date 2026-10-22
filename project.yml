@@ -1,0 +1,58 @@
+name: Murmur
+options:
+  bundleIdPrefix: com.leonardohaddad
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+  developmentLanguage: en
+configFiles:
+  Debug: Configs/Signing.xcconfig
+  Release: Configs/Signing.xcconfig
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    DEAD_CODE_STRIPPING: YES
+targets:
+  Murmur:
+    type: application
+    platform: macOS
+    sources:
+      - path: Murmur
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.leonardohaddad.Murmur
+        PRODUCT_NAME: Murmur
+        INFOPLIST_FILE: Murmur/Resources/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Murmur/Resources/Murmur.entitlements
+        ENABLE_HARDENED_RUNTIME: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: NO
+        COMBINE_HIDPI_IMAGES: YES
+  MurmurTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: MurmurTests
+    dependencies:
+      - target: Murmur
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.leonardohaddad.MurmurTests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Murmur.app/Contents/MacOS/Murmur"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+schemes:
+  Murmur:
+    build:
+      targets:
+        Murmur: all
+        MurmurTests: [test]
+    test:
+      targets:
+        - MurmurTests
+    run:
+      config: Debug

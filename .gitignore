@@ -1,0 +1,17 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcscmblueprint
+
+# macOS
+.DS_Store
+
+# Secrets — never commit API keys
+.env
+*.key
+secrets/
+
+# Local signing overrides
+Configs/Local.xcconfig
